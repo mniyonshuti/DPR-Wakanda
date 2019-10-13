@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/masterlayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.2/cerulean/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EmRcsPP774S9MOi4ywB+JXUWjYnBdyInMzG2XsC5siZEUpexqxOMJW358dCYEjPu" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Citizens</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div >
+        <h1>List of Citizens</h1>
+
+        <table class="table table-striped" style="width: auto">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">SSN</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Middle Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Yearly Income</th>
+                <th scope="col">State where born</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="citizen, iterStat : ${citizens}">
+                <th scope="row" th:text="${iterStat.count}"></th>
+                <td th:text="${citizen.socialSecurityNumber}"></td>
+                <td th:text="${citizen.firstName}"></td>
+                <td th:text="${citizen.middleName}"></td>
+                <td th:text="${citizen.lastName}"></td>
+                <td th:text="${citizen.dateOfBirth}"></td>
+                <td th:text="${citizen.yearlyIncome}"></td>
+                <td th:text="${citizen.state}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Pages: </a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(1, citizens.totalPages)}"
+                    th:class="${currentPageNo}==${i-1}?'page-item active':'page-item'">
+                    <a th:href="@{/wakandadpr/citizen/list(pageno=${i-1})}"
+                       th:text="${i}" class = "page-link"></a>
+                </li>
+            </ul>
+        </div>
+        <table class="table table-striped" style="width: auto">
+            <thead>
+            <tr>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="type, iterStat : ${totalYearIncome}">
+                <td th:text="${type.getKey()}"></td>
+                <td th:text="${type.getValue()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</th:block>
+</body>
+</html>

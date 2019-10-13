@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/masterlayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.2/cerulean/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EmRcsPP774S9MOi4ywB+JXUWjYnBdyInMzG2XsC5siZEUpexqxOMJW358dCYEjPu" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Add/Register New Citizen</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <h1>New Citizen Registration Form</h1><p></p>
+    <div>
+        <form name="newAccountType" id="newAccountType" method="post" action="/wakandadpr/citizen/new" th:object="${citizen}">
+            <fieldset>
+                <div>
+                    <div class="row" style="width: 90%; margin: 1%"  >
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="socialSecurityNumber">Social Security Number</label>
+                                <span th:if="${#fields.hasErrors('socialSecurityNumber')}" th:errors="*{socialSecurityNumber}"
+                                      class="alert alert-danger"></span>
+                                <input id="socialSecurityNumber" name="socialSecurityNumber" type="text" class="form-control" th:value="${citizen.socialSecurityNumber}"
+                                       placeholder="Social Security Number" required = "required">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="state">State where born</label>
+                                <select class="form-control"  id="state" name="state">
+                                    <option value="0">Select State</option>
+                                    <option th:each="state : ${states}" th:value="${state.stateId}" th:text="${state.stateCode} +' - '+${state.stateName}" required="required"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="firstName">First Name:</label>
+                                <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                                      class="alert alert-danger"></span>
+                                <input id="firstName" name="firstName" type="text" class="form-control" th:value="${citizen.firstName}"
+                                       placeholder="First Name" required = "required">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="middleName">Middle Name:</label>
+                                <span th:if="${#fields.hasErrors('middleName')}" th:errors="*{middleName}"
+                                      class="alert alert-danger"></span>
+                                <input id="middleName" name="middleName" type="text" class="form-control" th:value="${citizen.middleName}"
+                                       placeholder="Middle Name">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="lastName">Last Name:</label>
+                                <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                      class="alert alert-danger"></span>
+                                <input id="lastName" name="lastName" type="text" class="form-control" th:value="${citizen.lastName}"
+                                       placeholder="Last Name" required ="required" >
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="yearlyIncome">Yearly Income</label>
+                            <span th:if="${#fields.hasErrors('yearlyIncome')}" th:errors="*{yearlyIncome}"
+                                  class="alert alert-danger"></span>
+                            <input id="yearlyIncome" name="yearlyIncome" type="text" class="form-control" th:value="${citizen.yearlyIncome}" required="required">
+                        </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="dateOfBirth">Date of Birth:</label>
+                                <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"
+                                      class="alert alert-danger"></span>
+                                <input id="dateOfBirth" name="dateOfBirth" type="date" class="form-control" required = "required"
+                                       th:value="${citizen.dateOfBirth}">
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                <div style="float:right; width: 90%">
+                    <a href="/wakandadpr/home" class="btn btn-outline-warning" style="float: left">Cancel</a>&nbsp;&nbsp;&nbsp;
+                    <button id="btnSubmit" type="submit" class="btn btn-outline-success">Register</button>
+                </div>
+    </div>
+    </fieldset>
+    </form>
+    </div>
+</th:block>
+</body>
+</html>
